@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "timeout-package-issue.fullname" . }}
+  labels:
+    {{- include "timeout-package-issue.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "timeout-package-issue.selectorLabels" . | nindent 4 }}
